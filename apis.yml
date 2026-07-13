@@ -1,0 +1,181 @@
+aid: ninjavan
+url: https://raw.githubusercontent.com/api-evangelist/ninjavan/refs/heads/main/apis.yml
+name: Ninja Van
+kind: company
+description: Ninja Van is a Southeast Asian last-mile logistics and parcel-delivery
+  company operating across Singapore, Malaysia, Indonesia, Philippines, Vietnam, and
+  Thailand. Its ninjaAPI lets merchants and e-commerce platforms integrate shipping
+  programmatically - create and cancel delivery orders, generate waybills (AWB),
+  estimate tariffs, look up Ninja Point (PUDO) drop-off locations, receive parcel
+  status updates via webhooks, and pull tracking events. The API is country-scoped
+  (the country code is part of the path, e.g. https://api.ninjavan.co/SG/...) and
+  authenticated with OAuth2 client credentials; access is granted per merchant after
+  an onboarding and integration audit.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Logistics
+- Last-Mile Delivery
+- Shipping
+- Southeast Asia
+- Parcels
+- Tracking
+- Fulfillment
+- E-commerce Logistics
+- Waybill
+- SaaS
+created: '2026-07-12'
+modified: '2026-07-12'
+specificationVersion: '0.19'
+apis:
+- aid: ninjavan:ninjavan-oauth-api
+  name: Ninja Van OAuth API
+  tags:
+  - OAuth2
+  - Authentication
+  - Client Credentials
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.ninjavan.co/
+  baseURL: https://api.ninjavan.co/{countryCode}
+  properties:
+  - url: https://api-docs.ninjavan.co/
+    type: Documentation
+  - url: https://api-docs.ninjavan.co/
+    type: APIReference
+  - url: openapi/ninjavan-openapi.yml
+    type: OpenAPI
+  - url: collections/ninjavan.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ninjavan.opencollection.json
+    type: OpenCollection
+  description: Exchange a client ID and client secret for a short-lived OAuth2 access
+    token using the client-credentials grant (POST /{countryCode}/2.0/oauth/access_token).
+    The returned bearer token is attached to every subsequent ninjaAPI request and
+    cached until shortly before its expiry.
+- aid: ninjavan:ninjavan-order-api
+  name: Ninja Van Order API
+  tags:
+  - Orders
+  - Waybill
+  - AWB
+  - Shipping
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.ninjavan.co/
+  baseURL: https://api.ninjavan.co/{countryCode}
+  properties:
+  - url: https://api-docs.ninjavan.co/
+    type: Documentation
+  - url: https://api-docs.ninjavan.co/
+    type: APIReference
+  - url: openapi/ninjavan-openapi.yml
+    type: OpenAPI
+  - url: collections/ninjavan.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ninjavan.opencollection.json
+    type: OpenCollection
+  description: Create delivery orders (POST /{countryCode}/4.2/orders and the earlier
+    /4.1/orders), cancel an order by tracking number (DELETE
+    /{countryCode}/2.2/orders/{trackingNo}), and generate domestic or international
+    waybills (GET /{countryCode}/2.0/reports/waybill and /2.0/reports/international-waybills).
+    Waybill generation requires prior access approval from Ninja Van.
+- aid: ninjavan:ninjavan-tracking-api
+  name: Ninja Van Tracking API
+  tags:
+  - Tracking
+  - Parcels
+  - Events
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.ninjavan.co/
+  baseURL: https://api.ninjavan.co/{countryCode}
+  properties:
+  - url: https://api-docs.ninjavan.co/
+    type: Documentation
+  - url: https://api-docs.ninjavan.co/
+    type: APIReference
+  - url: openapi/ninjavan-openapi.yml
+    type: OpenAPI
+  - url: collections/ninjavan.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ninjavan.opencollection.json
+    type: OpenCollection
+  description: Retrieve tracking events for a single parcel (GET
+    /{countryCode}/1.0/orders/tracking-events/{trackingNumber}) or for a list of
+    parcels (GET /{countryCode}/1.0/orders/tracking-events). Ninja Van positions
+    webhooks as the primary push mechanism for status changes.
+- aid: ninjavan:ninjavan-webhooks-api
+  name: Ninja Van Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Status Updates
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.ninjavan.co/
+  baseURL: https://api.ninjavan.co/{countryCode}
+  properties:
+  - url: https://api-docs.ninjavan.co/
+    type: Documentation
+  - url: openapi/ninjavan-openapi.yml
+    type: OpenAPI
+  description: Ninja Van issues HTTP POST callbacks to a merchant-registered URL on
+    every order status change - Pending Pickup, In Transit, On Vehicle for Delivery,
+    Delivered, Delivery Exception, Returned to Sender, Cancelled, and more. The
+    request body carries JSON describing the event. This is server-to-endpoint HTTP,
+    not a WebSocket. Webhook URLs are registered through Ninja Van onboarding.
+- aid: ninjavan:ninjavan-tariff-api
+  name: Ninja Van Tariff API
+  tags:
+  - Pricing
+  - Tariff
+  - Rate Estimate
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.ninjavan.co/
+  baseURL: https://api.ninjavan.co/{countryCode}
+  properties:
+  - url: https://api-docs.ninjavan.co/
+    type: Documentation
+  - url: https://api-docs.ninjavan.co/
+    type: APIReference
+  - url: openapi/ninjavan-openapi.yml
+    type: OpenAPI
+  description: Estimate the shipping price for a parcel between an origin and
+    destination (POST /{countryCode}/1.0/public/price), given weight and dimensions.
+- aid: ninjavan:ninjavan-pudo-api
+  name: Ninja Van PUDO API
+  tags:
+  - PUDO
+  - Ninja Points
+  - Drop-off
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.ninjavan.co/
+  baseURL: https://api.ninjavan.co/{countryCode}
+  properties:
+  - url: https://api-docs.ninjavan.co/
+    type: Documentation
+  - url: https://api-docs.ninjavan.co/
+    type: APIReference
+  - url: openapi/ninjavan-openapi.yml
+    type: OpenAPI
+  description: List Ninja Point pick-up/drop-off (PUDO) locations (GET
+    /{countryCode}/2.0/pudos) and drive shipper drop-off flows for parcels
+    (/{countryCode}/1.0/send-orders/drop-off and related send-order endpoints).
+common:
+- type: DomainSecurity
+  url: security/ninjavan-domain-security.yml
+- type: Authentication
+  url: authentication/ninjavan-authentication.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ninja-van
+- type: Website
+  url: https://www.ninjavan.co/en-sg
+- type: Documentation
+  url: https://api-docs.ninjavan.co/
+- type: Plans
+  url: plans/ninjavan-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ninjavan-rate-limits.yml
+- type: FinOps
+  url: finops/ninjavan-finops.yml
+- url: https://blog.ninjavan.co/en-sg/
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

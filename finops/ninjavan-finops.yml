@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Ninja Van
+providerId: ninjavan
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Logistics
+- Last-Mile Delivery
+- Shipping
+- Southeast Asia
+- Parcels
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Ninja Van spend. Unlike a metered SaaS API, the ninjaAPI itself
+  carries no per-call fee - it is the integration surface for a physical
+  last-mile delivery service. Cost is driven by the delivery service consumed:
+  primarily a per-parcel shipping charge that varies by country, service level,
+  weight, dimensions, and delivery zone/distance, plus ancillary charges such as
+  cash-on-delivery handling, returns, remote-area surcharges, and any negotiated
+  account terms. Because pricing is country-specific and set in a merchant rate
+  card, per-unit rates are not reconciled here.
+notes: >-
+  Verify current per-parcel rates and surcharges against the Ninja Van rate card
+  for each operating country (SG, MY, ID, PH, VN, TH). API usage does not itself
+  generate an invoice; parcels shipped do.
+sources:
+- https://api-docs.ninjavan.co/
+- https://www.ninjavan.co/en-sg
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Ninja Van
+serviceCategory: Logistics and Shipping
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: Local (SGD, MYR, IDR, PHP, VND, THB)
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Ninja Van Delivery
+  ServiceCategory: Logistics and Shipping
+  ProviderName: Ninja Van
+  PublisherName: Ninja Van
+  InvoiceIssuerName: Ninja Van
+  BillingCurrency: Local
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: parcels_shipped
+  description: Parcels shipped, charged per parcel by country, service level, weight, and zone.
+  unit: parcels
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+  - service_level
+- name: cash_on_delivery
+  description: Cash-on-delivery amounts collected and remitted, potentially with a handling fee.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+- name: returns
+  description: Return-to-sender parcels, which may carry a separate return charge.
+  unit: parcels
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+- name: surcharges
+  description: Ancillary surcharges (remote area, oversized/bulky, redelivery attempts).
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - country
+principles:
+- name: Visibility
+  description: Track parcels shipped and their status per country and service level; reconcile against the Ninja Van rate card.
+- name: Allocation
+  description: Tag orders with merchant order references so shipping cost maps to internal channels or storefronts.
+- name: Optimization
+  description: Use the Tariff API to estimate price before creating orders; consolidate parcels, right-size packaging, and reduce failed deliveries and returns to lower per-parcel cost.
+- name: Accountability
+  description: Assign owners per storefront/country; review monthly shipping spend against forecast and rate card.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

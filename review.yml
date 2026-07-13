@@ -1,0 +1,103 @@
+aid: ninjavan
+name: Ninja Van
+review:
+  question: Does Ninja Van expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-12'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Ninja Van's ninjaAPI is request/response
+    REST over HTTPS. Its event surface is delivered by outbound webhooks -
+    Ninja Van issues HTTP POST callbacks to a merchant-registered URL on each
+    order status change. That is server-to-endpoint HTTP, not a server-push
+    streaming transport (WebSocket or SSE) on Ninja Van's own API, so there is
+    no realtime channel on Ninja Van's side to model as AsyncAPI.
+findings:
+  summary: |
+    Ninja Van does not publish a documented public WebSocket API. The ninjaAPI
+    is a country-scoped REST API - the country code is the first path segment
+    (e.g. https://api.ninjavan.co/SG/...) - authenticated with an OAuth2
+    client-credentials access token passed as a Bearer token. Documented
+    surfaces are all HTTPS REST: OAuth token issuance, order create/cancel,
+    waybill (AWB) generation, tariff/price estimate, PUDO (Ninja Point)
+    lookup and shipper drop-off, and pull tracking-events endpoints. Order
+    status changes are pushed to merchants via outbound webhooks (HTTP POST
+    callbacks). No realtime, bidirectional WebSocket (ws:// or wss://) endpoint
+    is documented anywhere in Ninja Van's API reference as of the review date.
+  accessModel: |
+    Access is relationship-based and gated. A merchant requests a sandbox
+    account by email to Ninja Van sales enablement; the sandbox only supports
+    the Singapore (sg) country code. Client credentials are issued per
+    merchant. Production access requires passing an integration audit (which
+    includes generating sample orders), and the waybill endpoint additionally
+    requires explicit access approval. Hosts: production
+    https://api.ninjavan.co/{countryCode}, sandbox
+    https://api-sandbox.ninjavan.co/sg.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.ninjavan.co/{countryCode}
+      documented: true
+      note: All ninjaAPI endpoints (OAuth, orders, waybill, tariff, PUDO, tracking-events) are HTTPS REST.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Ninja Van POSTs order status-change events to a merchant-registered URL. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Ninja Van's API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.ninjavan.co/{countryCode}/2.0/oauth/access_token
+    - POST   https://api.ninjavan.co/{countryCode}/4.2/orders
+    - POST   https://api.ninjavan.co/{countryCode}/4.1/orders
+    - DELETE https://api.ninjavan.co/{countryCode}/2.2/orders/{trackingNo}
+    - GET    https://api.ninjavan.co/{countryCode}/2.0/reports/waybill
+    - GET    https://api.ninjavan.co/{countryCode}/2.0/reports/international-waybills
+    - POST   https://api.ninjavan.co/{countryCode}/1.0/public/price
+    - GET    https://api.ninjavan.co/{countryCode}/2.0/pudos
+    - POST   https://api.ninjavan.co/{countryCode}/1.0/send-orders/drop-off
+    - GET    https://api.ninjavan.co/{countryCode}/1.0/send-orders/{trackingId}
+    - GET    https://api.ninjavan.co/{countryCode}/1.0/orders/tracking-events/{trackingNumber}
+    - GET    https://api.ninjavan.co/{countryCode}/1.0/orders/tracking-events
+  endpointsModeled:
+    - note: |
+        Request and response JSON schemas in openapi/ninjavan-openapi.yml are
+        modeled/simplified from Ninja Van documentation, not copied verbatim
+        from the official spec. Field lists (order from/to/parcel_job, price
+        estimate, PUDO location, tracking event) are representative and should
+        be verified against the live API reference. Path, method, and version
+        for every endpoint above are grounded in Ninja Van's published OpenAPI
+        specification (v4.1.0).
+  webhookEvents:
+    - Pending Pickup
+    - Picked Up, In Transit To Origin Hub
+    - Arrived at Origin/Transit/Destination Hub
+    - On Vehicle for Delivery
+    - At PUDO, Pending Customer Collection
+    - Delivered (Collected by Customer / Left at Doorstep / Received by Customer)
+    - Delivery Exception (Pending Reschedule / Max Attempts / Lost / Damaged)
+    - Returned to Sender
+    - Cancelled
+sources:
+  - url: https://api-docs.ninjavan.co/
+    type: APIReference
+    note: Official ninjaAPI reference portal (Redoc). All endpoints HTTPS REST; webhooks push events. No WebSocket.
+  - url: https://api-docs.ninjavan.co/static/media/orderapi.329de9be595f09282293.yaml
+    type: OpenAPI
+    note: Ninja Van's published OpenAPI spec (v4.1.0) - source for paths, methods, versions, servers, and webhook event list.
+  - url: https://sites.google.com/ninjavan.co/ninjaapi/api-docs
+    type: Documentation
+    note: ninjaAPI integration guide - OAuth2 client-credentials flow, token caching, sandbox access request, integration audit.
+  - url: https://sites.google.com/ninjavan.co/ninjaapi/interface-guideline
+    type: Documentation
+    note: Interface guideline - country-code hosts (api.ninjavan.co / api-sandbox.ninjavan.co), sandbox restricted to sg.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Ninja Van's own public API is
+    request/response REST plus outbound webhooks; there is no server-push
+    streaming transport on Ninja Van's side, so no AsyncAPI document was
+    created. WebSocket precision is false.

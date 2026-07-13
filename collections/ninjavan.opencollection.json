@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ninja Van API (ninjaAPI)",
+    "version": "4.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{accessToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "OAuth API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Request access token", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/sg/2.0/oauth/access_token",
+            "auth": { "type": "none" },
+            "body": { "type": "json", "data": "{\n  \"client_id\": \"CLIENT_ID\",\n  \"client_secret\": \"CLIENT_SECRET\",\n  \"grant_type\": \"client_credentials\"\n}" }
+          },
+          "docs": "Exchange client ID and client secret for a short-lived OAuth2 access token (client-credentials grant). The country code (sg here) is the first path segment."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Order API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create delivery order (v4.2)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/sg/4.2/orders",
+            "body": { "type": "json", "data": "{\n  \"service_type\": \"Parcel\",\n  \"service_level\": \"Standard\",\n  \"from\": {},\n  \"to\": {},\n  \"parcel_job\": {}\n}" }
+          },
+          "docs": "Creates a delivery order (v4.2). The request describes service, from/to parties, and the parcel job."
+        },
+        {
+          "info": { "name": "Create delivery order (v4.1)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/sg/4.1/orders",
+            "body": { "type": "json", "data": "{\n  \"service_type\": \"Parcel\",\n  \"from\": {},\n  \"to\": {},\n  \"parcel_job\": {}\n}" }
+          },
+          "docs": "Creates a delivery order (v4.1, retained for existing integrations)."
+        },
+        {
+          "info": { "name": "Cancel order", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ninjavan.co/sg/2.2/orders/:trackingNo",
+            "params": [
+              { "name": "trackingNo", "value": "", "type": "path", "description": "Tracking number of the order to cancel." }
+            ]
+          },
+          "docs": "Cancels an order that has not yet been picked up, by tracking number."
+        },
+        {
+          "info": { "name": "Generate waybill", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/sg/2.0/reports/waybill?tid=&hide_shipper_details=false&orientation=portrait",
+            "params": [
+              { "name": "tid", "value": "", "type": "query", "description": "One or more tracking numbers." },
+              { "name": "hide_shipper_details", "value": "false", "type": "query", "description": "Hide shipper details on the waybill." },
+              { "name": "orientation", "value": "portrait", "type": "query", "description": "Waybill orientation." }
+            ]
+          },
+          "docs": "Generates a waybill PDF for one or more tracking numbers. Requires prior access approval from Ninja Van."
+        },
+        {
+          "info": { "name": "Generate international waybill", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/sg/2.0/reports/international-waybills?tid=",
+            "params": [
+              { "name": "tid", "value": "", "type": "query", "description": "One or more tracking numbers." }
+            ]
+          },
+          "docs": "Generates an international waybill document for cross-border parcels."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Tracking API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get events for single parcel", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/sg/1.0/orders/tracking-events/:trackingNumber",
+            "params": [
+              { "name": "trackingNumber", "value": "", "type": "path", "description": "The parcel tracking number." }
+            ]
+          },
+          "docs": "Returns the tracking events recorded for a single parcel."
+        },
+        {
+          "info": { "name": "Get events for list of parcels", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/sg/1.0/orders/tracking-events?tracking_number=",
+            "params": [
+              { "name": "tracking_number", "value": "", "type": "query", "description": "Comma-separated or repeated tracking numbers." }
+            ]
+          },
+          "docs": "Returns tracking events for a list of parcels."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Tariff API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get price estimate", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/sg/1.0/public/price",
+            "body": { "type": "json", "data": "{\n  \"service_type\": \"Parcel\",\n  \"from\": {},\n  \"to\": {},\n  \"weight\": 1.5\n}" }
+          },
+          "docs": "Returns an estimated shipping price for a parcel between an origin and destination."
+        }
+      ]
+    },
+    {
+      "info": { "name": "PUDO API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List Ninja Points (PUDO locations)", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/sg/2.0/pudos?can_customer_collect=true",
+            "params": [
+              { "name": "can_customer_collect", "value": "true", "type": "query", "description": "Filter to points that allow customer collection." }
+            ]
+          },
+          "docs": "Lists Ninja Point pick-up / drop-off (PUDO) locations and their capabilities."
+        },
+        {
+          "info": { "name": "Trigger shipper drop-off for parcel", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/sg/1.0/send-orders/drop-off",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Triggers the shipper drop-off flow for a parcel at a Ninja Point."
+        },
+        {
+          "info": { "name": "Scan parcel for shipper drop-off", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/sg/1.0/send-orders/:trackingId",
+            "params": [
+              { "name": "trackingId", "value": "", "type": "path", "description": "Tracking ID of the parcel." }
+            ]
+          },
+          "docs": "Scans a parcel by tracking ID as part of the shipper drop-off flow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

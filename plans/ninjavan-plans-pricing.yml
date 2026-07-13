@@ -1,0 +1,110 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ninja Van
+providerId: ninjavan
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Logistics
+- Last-Mile Delivery
+- Shipping
+- Southeast Asia
+- Parcels
+- Plans
+description: >-
+  Ninja Van does not sell the ninjaAPI as a metered API product with published
+  price tiers. The API is a shipping-integration channel for merchants who have a
+  Ninja Van shipping account; there is no separate API subscription fee.
+  Onboarding is relationship-based: a merchant requests a sandbox account (by
+  email to Ninja Van sales enablement), builds an integration, passes an
+  integration audit (which requires generating sample orders and, for waybills,
+  explicit access approval), and is then granted production credentials. What the
+  merchant actually pays for is the delivery service itself - priced per parcel
+  by country, service level, weight, dimensions, and distance/zone, and typically
+  negotiated in a shipping-rate card or commercial agreement. Exact shipping
+  rates are country-specific and not reconciled here.
+notes: >-
+  Verify current shipping rate cards and any account minimums directly with Ninja
+  Van in the target country. The API itself carries no per-call price in the
+  public documentation.
+sources:
+- https://api-docs.ninjavan.co/
+- https://sites.google.com/ninjavan.co/ninjaapi/api-docs
+- https://www.ninjavan.co/en-sg
+plans:
+- id: ninjavan-sandbox
+  name: Sandbox
+  type: free
+  description: >-
+    Free sandbox environment for building and testing an integration. Requested
+    by email to Ninja Van sales enablement. The sandbox only supports the
+    Singapore (sg) country code; waybill generation in sandbox must be
+    separately enabled by Ninja Van.
+  entries:
+  - label: Sandbox Access
+    name: sandbox_access
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (sandbox; access on request)
+    userMultiplied: false
+  elements:
+  - name: OAuth2 Credentials
+  - name: Create Order API
+  - name: Tracking and Webhooks
+  - name: Singapore-only
+- id: ninjavan-merchant
+  name: Merchant (Production)
+  type: usage
+  description: >-
+    Production access for an approved merchant shipping account. The API has no
+    separate subscription fee; charges are for the underlying delivery service,
+    billed per parcel per the merchant's shipping rate card. Requires passing the
+    integration audit.
+  entries:
+  - label: Per-Parcel Delivery
+    name: per_parcel_delivery
+    type: usage
+    metric: parcels
+    limit: -1
+    timeFrame: month
+    geo: regional
+    unit: 1
+    price: per-parcel shipping rate (see country rate card)
+    userMultiplied: false
+  elements:
+  - name: Create and Cancel Orders
+  - name: Waybill Generation
+  - name: Tariff Estimates
+  - name: Tracking and Webhooks
+  - name: PUDO / Ninja Points
+- id: ninjavan-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Negotiated commercial agreement for high-volume shippers and marketplaces,
+    with custom rate cards, dedicated account management, and country coverage
+    across Southeast Asia. Contact Ninja Van.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: regional
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Rates
+  - name: Dedicated Account Management
+  - name: Multi-Country Coverage
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

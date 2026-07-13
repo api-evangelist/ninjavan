@@ -1,0 +1,31 @@
+generated: '2026-07-12'
+method: derived
+source: openapi/ninjavan-openapi.yml
+summary:
+  types:
+  - oauth2
+  - http
+schemes:
+- name: oauth2ClientCredentials
+  type: oauth2
+  flow: clientCredentials
+  tokenUrl: https://api.ninjavan.co/{countryCode}/2.0/oauth/access_token
+  description: >-
+    Ninja Van uses the OAuth2 client-credentials grant. POST your client_id,
+    client_secret, and grant_type=client_credentials to
+    /{countryCode}/2.0/oauth/access_token to receive a short-lived access token.
+    The token should be cached with its expiry and regenerated within about five
+    minutes of expiry, or whenever the API returns HTTP 401. Client credentials
+    are issued per merchant during onboarding; production access additionally
+    requires passing Ninja Van's integration audit.
+  sources:
+  - openapi/ninjavan-openapi.yml
+  - https://api-docs.ninjavan.co/
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: >-
+    The OAuth2 access token is passed on every subsequent request as
+    `Authorization: Bearer ACCESS_TOKEN`.
+  sources:
+  - openapi/ninjavan-openapi.yml

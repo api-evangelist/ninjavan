@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Ninja Van
+providerId: ninjavan
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Logistics
+- Last-Mile Delivery
+- Shipping
+- Southeast Asia
+- Rate Limiting
+- Quotas
+description: >-
+  Ninja Van does not publish fixed numeric rate limits for the ninjaAPI in its
+  public documentation. Practical throughput is governed by the OAuth2
+  token lifecycle (tokens are short-lived and should be cached and reused rather
+  than re-minted per request; regenerate only within about five minutes of expiry
+  or on an HTTP 401) and by the integration audit that gates production access.
+  Access to some endpoints is explicitly gated: waybill generation requires prior
+  approval, and the sandbox is restricted to the Singapore (sg) country code.
+notes: >-
+  No per-minute or per-day request caps are documented as of the review date.
+  Cache the access token, back off on 429/401, and confirm any account-specific
+  limits with Ninja Van during onboarding.
+sources:
+- https://api-docs.ninjavan.co/
+- https://sites.google.com/ninjavan.co/ninjaapi/api-docs
+responseCodes:
+  throttled: 429
+  unauthorized: 401
+  forbidden: 403
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the ninjaAPI.
+- name: OAuth Token Lifetime
+  scope: account
+  metric: tokens
+  limit: short-lived (cache and reuse)
+  notes: Access tokens expire; regenerate within ~5 minutes of expiry or on HTTP 401 rather than per request.
+- name: Waybill Generation
+  scope: account
+  metric: requests
+  limit: access-gated
+  notes: Requires prior access approval from Ninja Van before the endpoint can be used.
+- name: Sandbox Country Scope
+  scope: environment
+  metric: requests
+  limit: Singapore (sg) only
+  notes: The sandbox environment only supports the sg country code.
+policies:
+- name: Token Caching
+  description: Store the access token and its expiry; reuse until close to expiry to avoid unnecessary token requests.
+- name: Backoff Strategy
+  description: Implement exponential backoff with jitter and honor Retry-After on 429 responses; re-authenticate on 401.
+- name: Integration Audit
+  description: Production access is granted only after passing Ninja Van's integration audit, which includes generating sample orders.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

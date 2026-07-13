@@ -1,0 +1,161 @@
+{
+  "info": {
+    "name": "Ninja Van API (ninjaAPI)",
+    "description": "Ninja Van last-mile logistics API for Southeast Asia. Country-scoped REST API: the country code is the first path segment (e.g. sg, my, id, ph, vn, th). Base URL: https://api.ninjavan.co/{countryCode} (production) or https://api-sandbox.ninjavan.co/sg (sandbox, Singapore only). Authenticate via OAuth2 client credentials (POST /2.0/oauth/access_token) and pass the returned Bearer token. Paths and versions are grounded in Ninja Van's published OpenAPI spec (v4.1.0); request bodies are simplified examples.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.ninjavan.co", "type": "string" },
+    { "key": "countryCode", "value": "sg", "type": "string" },
+    { "key": "clientId", "value": "", "type": "string" },
+    { "key": "clientSecret", "value": "", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "OAuth API",
+      "item": [
+        {
+          "name": "Request access token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"client_id\": \"{{clientId}}\",\n  \"client_secret\": \"{{clientSecret}}\",\n  \"grant_type\": \"client_credentials\"\n}" },
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/2.0/oauth/access_token", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "2.0", "oauth", "access_token"] },
+            "description": "Exchange client ID and client secret for a short-lived OAuth2 access token (client-credentials grant)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order API",
+      "item": [
+        {
+          "name": "Create delivery order (v4.2)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"service_type\": \"Parcel\",\n  \"service_level\": \"Standard\",\n  \"from\": {\n    \"name\": \"Sender\",\n    \"phone_number\": \"+6580000000\",\n    \"address\": { \"address1\": \"1 Sender Road\", \"city\": \"Singapore\", \"country\": \"SG\", \"postcode\": \"569933\" }\n  },\n  \"to\": {\n    \"name\": \"Recipient\",\n    \"phone_number\": \"+6580000001\",\n    \"address\": { \"address1\": \"2 Recipient Road\", \"city\": \"Singapore\", \"country\": \"SG\", \"postcode\": \"049483\" }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": true,\n    \"dimensions\": { \"weight\": 1.5 },\n    \"delivery_start_date\": \"2026-07-15\"\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/4.2/orders", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "4.2", "orders"] },
+            "description": "Creates a delivery order (v4.2)."
+          }
+        },
+        {
+          "name": "Create delivery order (v4.1)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"service_type\": \"Parcel\",\n  \"service_level\": \"Standard\",\n  \"from\": {},\n  \"to\": {},\n  \"parcel_job\": {}\n}" },
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/4.1/orders", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "4.1", "orders"] },
+            "description": "Creates a delivery order (v4.1, retained for existing integrations)."
+          }
+        },
+        {
+          "name": "Cancel order",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/2.2/orders/:trackingNo", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "2.2", "orders", ":trackingNo"], "variable": [{ "key": "trackingNo", "value": "" }] },
+            "description": "Cancels an order that has not yet been picked up, by tracking number."
+          }
+        },
+        {
+          "name": "Generate waybill",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/2.0/reports/waybill?tid=&hide_shipper_details=false&orientation=portrait", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "2.0", "reports", "waybill"], "query": [{ "key": "tid", "value": "" }, { "key": "hide_shipper_details", "value": "false" }, { "key": "orientation", "value": "portrait" }] },
+            "description": "Generates a waybill PDF for one or more tracking numbers. Requires prior access approval from Ninja Van."
+          }
+        },
+        {
+          "name": "Generate international waybill",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/2.0/reports/international-waybills?tid=", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "2.0", "reports", "international-waybills"], "query": [{ "key": "tid", "value": "" }] },
+            "description": "Generates an international waybill document for cross-border parcels."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tracking API",
+      "item": [
+        {
+          "name": "Get events for single parcel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/1.0/orders/tracking-events/:trackingNumber", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "1.0", "orders", "tracking-events", ":trackingNumber"], "variable": [{ "key": "trackingNumber", "value": "" }] },
+            "description": "Returns the tracking events recorded for a single parcel."
+          }
+        },
+        {
+          "name": "Get events for list of parcels",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/1.0/orders/tracking-events?tracking_number=", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "1.0", "orders", "tracking-events"], "query": [{ "key": "tracking_number", "value": "" }] },
+            "description": "Returns tracking events for a list of parcels."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tariff API",
+      "item": [
+        {
+          "name": "Get price estimate",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"service_type\": \"Parcel\",\n  \"service_level\": \"Standard\",\n  \"from\": { \"address\": { \"postcode\": \"569933\", \"country\": \"SG\" } },\n  \"to\": { \"address\": { \"postcode\": \"049483\", \"country\": \"SG\" } },\n  \"weight\": 1.5\n}" },
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/1.0/public/price", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "1.0", "public", "price"] },
+            "description": "Returns an estimated shipping price for a parcel between an origin and destination."
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUDO API",
+      "item": [
+        {
+          "name": "List Ninja Points (PUDO locations)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/2.0/pudos?can_customer_collect=true", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "2.0", "pudos"], "query": [{ "key": "can_customer_collect", "value": "true" }] },
+            "description": "Lists Ninja Point pick-up / drop-off (PUDO) locations and their capabilities."
+          }
+        },
+        {
+          "name": "Trigger shipper drop-off for parcel",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/1.0/send-orders/drop-off", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "1.0", "send-orders", "drop-off"] },
+            "description": "Triggers the shipper drop-off flow for a parcel at a Ninja Point."
+          }
+        },
+        {
+          "name": "Scan parcel for shipper drop-off",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/{{countryCode}}/1.0/send-orders/:trackingId", "host": ["{{baseUrl}}"], "path": ["{{countryCode}}", "1.0", "send-orders", ":trackingId"], "variable": [{ "key": "trackingId", "value": "" }] },
+            "description": "Scans a parcel by tracking ID as part of the shipper drop-off flow."
+          }
+        }
+      ]
+    }
+  ]
+}
