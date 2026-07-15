@@ -158,6 +158,8 @@ apis:
     /{countryCode}/2.0/pudos) and drive shipper drop-off flows for parcels
     (/{countryCode}/1.0/send-orders/drop-off and related send-order endpoints).
 common:
+- type: AgenticAccess
+  url: agentic-access/ninjavan-agentic-access.yml
 - type: DomainSecurity
   url: security/ninjavan-domain-security.yml
 - type: Authentication
