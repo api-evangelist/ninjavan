@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Ninja Van API (ninjaAPI) OAuth API PUDO API API
+  description: 'ninjaAPI is Ninja Van''s REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.
+
+    Paths, methods, and versions in this document are grounded in Ninja Van''s published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.'
+  version: 4.1.0
+  contact:
+    name: Ninja Van Developer Support
+    url: https://api-docs.ninjavan.co/
+servers:
+- url: https://api.ninjavan.co/{countryCode}
+  description: Production (countryCode is one of sg, my, id, ph, vn, th)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+      - my
+      - id
+      - ph
+      - vn
+      - th
+- url: https://api-sandbox.ninjavan.co/{countryCode}
+  description: Sandbox (only the sg country code is supported)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+security:
+- bearerAuth: []
+tags:
+- name: PUDO API
+  description: Ninja Point pick-up / drop-off locations and shipper drop-off.
+paths:
+  /2.0/pudos:
+    get:
+      operationId: listNinjaPoints
+      tags:
+      - PUDO API
+      summary: List Ninja Points (PUDO locations)
+      description: Lists Ninja Point pick-up / drop-off (PUDO) locations and their capabilities (customer collection, shipper send, returns, and so on).
+      parameters:
+      - name: can_customer_collect
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: allow_shipper_send
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: allow_customer_return
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: A list of Ninja Point locations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PudoLocation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /1.0/send-orders/drop-off:
+    post:
+      operationId: triggerShipperDropOff
+      tags:
+      - PUDO API
+      summary: Trigger shipper drop-off for parcel
+      description: Triggers the shipper drop-off flow for a parcel at a Ninja Point.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Drop-off acknowledgement.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /1.0/send-orders/{trackingId}:
+    get:
+      operationId: scanParcelForDropOff
+      tags:
+      - PUDO API
+      summary: Scan parcel for shipper drop-off
+      description: Scans a parcel by tracking ID as part of the shipper drop-off flow.
+      parameters:
+      - name: trackingId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Scan result.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+    PudoLocation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        can_customer_collect:
+          type: boolean
+        allow_shipper_send:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 client-credentials access token obtained from POST /{countryCode}/2.0/oauth/access_token, passed as `Authorization: Bearer ACCESS_TOKEN`.'

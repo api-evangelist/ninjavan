@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Ninja Van API (ninjaAPI) OAuth API API
+  description: 'ninjaAPI is Ninja Van''s REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.
+
+    Paths, methods, and versions in this document are grounded in Ninja Van''s published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.'
+  version: 4.1.0
+  contact:
+    name: Ninja Van Developer Support
+    url: https://api-docs.ninjavan.co/
+servers:
+- url: https://api.ninjavan.co/{countryCode}
+  description: Production (countryCode is one of sg, my, id, ph, vn, th)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+      - my
+      - id
+      - ph
+      - vn
+      - th
+- url: https://api-sandbox.ninjavan.co/{countryCode}
+  description: Sandbox (only the sg country code is supported)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+security:
+- bearerAuth: []
+tags:
+- name: OAuth API
+  description: OAuth2 client-credentials token issuance.
+paths:
+  /2.0/oauth/access_token:
+    post:
+      operationId: requestAccessToken
+      tags:
+      - OAuth API
+      summary: Request access token
+      description: Exchanges a client ID and client secret for a short-lived OAuth2 access token using the client-credentials grant. Attach the returned token as a Bearer token on all subsequent requests.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessTokenRequest'
+      responses:
+        '200':
+          description: An access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    AccessTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: bearer
+        expires:
+          type: integer
+          description: Expiry as a Unix timestamp.
+        expires_in:
+          type: integer
+          description: Lifetime of the token in seconds.
+    AccessTokenRequest:
+      type: object
+      required:
+      - client_id
+      - client_secret
+      - grant_type
+      properties:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+          default: client_credentials
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 client-credentials access token obtained from POST /{countryCode}/2.0/oauth/access_token, passed as `Authorization: Bearer ACCESS_TOKEN`.'

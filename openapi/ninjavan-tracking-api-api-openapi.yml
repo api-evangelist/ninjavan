@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: Ninja Van API (ninjaAPI) OAuth API Tracking API API
+  description: 'ninjaAPI is Ninja Van''s REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.
+
+    Paths, methods, and versions in this document are grounded in Ninja Van''s published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.'
+  version: 4.1.0
+  contact:
+    name: Ninja Van Developer Support
+    url: https://api-docs.ninjavan.co/
+servers:
+- url: https://api.ninjavan.co/{countryCode}
+  description: Production (countryCode is one of sg, my, id, ph, vn, th)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+      - my
+      - id
+      - ph
+      - vn
+      - th
+- url: https://api-sandbox.ninjavan.co/{countryCode}
+  description: Sandbox (only the sg country code is supported)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+security:
+- bearerAuth: []
+tags:
+- name: Tracking API
+  description: Pull tracking events for parcels.
+paths:
+  /1.0/orders/tracking-events/{trackingNumber}:
+    get:
+      operationId: getTrackingEventsForParcel
+      tags:
+      - Tracking API
+      summary: Get events for single parcel
+      description: Returns the tracking events recorded for a single parcel.
+      parameters:
+      - name: trackingNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tracking events for the parcel.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrackingEvent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /1.0/orders/tracking-events:
+    get:
+      operationId: getTrackingEventsForParcels
+      tags:
+      - Tracking API
+      summary: Get events for list of parcels
+      description: Returns tracking events for a list of parcels.
+      parameters:
+      - name: tracking_number
+        in: query
+        required: true
+        description: Comma-separated or repeated tracking numbers.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tracking events for the requested parcels.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrackingEvent'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+    TrackingEvent:
+      type: object
+      properties:
+        tracking_number:
+          type: string
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        description:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 client-credentials access token obtained from POST /{countryCode}/2.0/oauth/access_token, passed as `Authorization: Bearer ACCESS_TOKEN`.'

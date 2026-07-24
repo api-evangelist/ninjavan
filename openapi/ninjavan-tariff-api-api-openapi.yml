@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Ninja Van API (ninjaAPI) OAuth API Tariff API API
+  description: 'ninjaAPI is Ninja Van''s REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.
+
+    Paths, methods, and versions in this document are grounded in Ninja Van''s published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.'
+  version: 4.1.0
+  contact:
+    name: Ninja Van Developer Support
+    url: https://api-docs.ninjavan.co/
+servers:
+- url: https://api.ninjavan.co/{countryCode}
+  description: Production (countryCode is one of sg, my, id, ph, vn, th)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+      - my
+      - id
+      - ph
+      - vn
+      - th
+- url: https://api-sandbox.ninjavan.co/{countryCode}
+  description: Sandbox (only the sg country code is supported)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+security:
+- bearerAuth: []
+tags:
+- name: Tariff API
+  description: Estimate shipping price.
+paths:
+  /1.0/public/price:
+    post:
+      operationId: getPriceEstimate
+      tags:
+      - Tariff API
+      summary: Get price estimate
+      description: Returns an estimated shipping price for a parcel between an origin and a destination, based on weight and dimensions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceEstimateInput'
+      responses:
+        '200':
+          description: A price estimate.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceEstimate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  schemas:
+    PriceEstimate:
+      type: object
+      properties:
+        currency:
+          type: string
+        price:
+          type: number
+        breakdown:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+    Contact:
+      type: object
+      description: A pickup or delivery party.
+      properties:
+        name:
+          type: string
+        phone_number:
+          type: string
+        email:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            area:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            address_type:
+              type: string
+            country:
+              type: string
+            postcode:
+              type: string
+    PriceEstimateInput:
+      type: object
+      properties:
+        service_type:
+          type: string
+        service_level:
+          type: string
+        from:
+          $ref: '#/components/schemas/Contact'
+        to:
+          $ref: '#/components/schemas/Contact'
+        weight:
+          type: number
+        dimensions:
+          type: object
+          properties:
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 client-credentials access token obtained from POST /{countryCode}/2.0/oauth/access_token, passed as `Authorization: Bearer ACCESS_TOKEN`.'

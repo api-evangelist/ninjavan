@@ -1,0 +1,335 @@
+openapi: 3.0.3
+info:
+  title: Ninja Van API (ninjaAPI) OAuth API Order API API
+  description: 'ninjaAPI is Ninja Van''s REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.
+
+    Paths, methods, and versions in this document are grounded in Ninja Van''s published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.'
+  version: 4.1.0
+  contact:
+    name: Ninja Van Developer Support
+    url: https://api-docs.ninjavan.co/
+servers:
+- url: https://api.ninjavan.co/{countryCode}
+  description: Production (countryCode is one of sg, my, id, ph, vn, th)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+      - my
+      - id
+      - ph
+      - vn
+      - th
+- url: https://api-sandbox.ninjavan.co/{countryCode}
+  description: Sandbox (only the sg country code is supported)
+  variables:
+    countryCode:
+      default: sg
+      enum:
+      - sg
+security:
+- bearerAuth: []
+tags:
+- name: Order API
+  description: Create and cancel delivery orders and generate waybills.
+paths:
+  /4.2/orders:
+    post:
+      operationId: createOrderV42
+      tags:
+      - Order API
+      summary: Create delivery order (v4.2)
+      description: Creates a delivery order. Version 4.2 of the create-order endpoint. The request describes the service, the pickup (from) and delivery (to) parties, and the parcel job (dimensions, delivery instructions, cash on delivery, delivery timeframe).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: The created order, including the assigned tracking number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /4.1/orders:
+    post:
+      operationId: createOrderV41
+      tags:
+      - Order API
+      summary: Create delivery order (v4.1)
+      description: Creates a delivery order using version 4.1 of the create-order endpoint. Retained alongside 4.2 for existing integrations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: The created order, including the assigned tracking number.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /2.2/orders/{trackingNo}:
+    delete:
+      operationId: cancelOrder
+      tags:
+      - Order API
+      summary: Cancel order
+      description: Cancels an order that has not yet been picked up, by its tracking number.
+      parameters:
+      - name: trackingNo
+        in: path
+        required: true
+        description: The tracking number of the order to cancel.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Cancellation result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /2.0/reports/waybill:
+    get:
+      operationId: generateWaybill
+      tags:
+      - Order API
+      summary: Generate waybill
+      description: Generates a waybill (air waybill / shipping label) PDF for one or more tracking numbers. Access to this endpoint must be granted by Ninja Van before use.
+      parameters:
+      - name: tid
+        in: query
+        required: true
+        description: One or more tracking numbers to include on the waybill.
+        schema:
+          type: string
+      - name: hide_shipper_details
+        in: query
+        required: false
+        description: Whether to hide the shipper's details on the waybill.
+        schema:
+          type: boolean
+      - name: orientation
+        in: query
+        required: false
+        description: Waybill orientation.
+        schema:
+          type: string
+          enum:
+          - portrait
+          - landscape
+      responses:
+        '200':
+          description: A waybill document.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /2.0/reports/international-waybills:
+    get:
+      operationId: generateInternationalWaybill
+      tags:
+      - Order API
+      summary: Generate international waybill
+      description: Generates an international waybill document for cross-border parcels.
+      parameters:
+      - name: tid
+        in: query
+        required: true
+        description: One or more tracking numbers to include on the waybill.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: An international waybill document.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  responses:
+    Forbidden:
+      description: The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Order:
+      allOf:
+      - $ref: '#/components/schemas/OrderInput'
+      - type: object
+        properties:
+          tracking_number:
+            type: string
+          status:
+            type: string
+          created_at:
+            type: string
+            format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+    Contact:
+      type: object
+      description: A pickup or delivery party.
+      properties:
+        name:
+          type: string
+        phone_number:
+          type: string
+        email:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            area:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            address_type:
+              type: string
+            country:
+              type: string
+            postcode:
+              type: string
+    ParcelJob:
+      type: object
+      description: Details of the parcel and how it should be handled.
+      properties:
+        is_pickup_required:
+          type: boolean
+        pickup_service_type:
+          type: string
+        pickup_date:
+          type: string
+          format: date
+        delivery_start_date:
+          type: string
+          format: date
+        delivery_timeslot:
+          type: object
+          additionalProperties: true
+        dimensions:
+          type: object
+          properties:
+            weight:
+              type: number
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+        cash_on_delivery:
+          type: number
+        allow_weekend_delivery:
+          type: boolean
+    CancelResponse:
+      type: object
+      properties:
+        tracking_number:
+          type: string
+        status:
+          type: string
+    OrderInput:
+      type: object
+      required:
+      - service_type
+      - from
+      - to
+      - parcel_job
+      properties:
+        service_type:
+          type: string
+          description: For example Parcel.
+        service_level:
+          type: string
+          description: For example Standard.
+        requested_tracking_number:
+          type: string
+        reference:
+          type: object
+          properties:
+            merchant_order_number:
+              type: string
+        from:
+          $ref: '#/components/schemas/Contact'
+        to:
+          $ref: '#/components/schemas/Contact'
+        parcel_job:
+          $ref: '#/components/schemas/ParcelJob'
+        marketplace:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 client-credentials access token obtained from POST /{countryCode}/2.0/oauth/access_token, passed as `Authorization: Bearer ACCESS_TOKEN`.'
