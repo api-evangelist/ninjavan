@@ -1,0 +1,22 @@
+{
+  "provider": "ninjavan",
+  "sources": [
+    "ninjavan-oauth-api-api-openapi.yml",
+    "ninjavan-order-api-api-openapi.yml",
+    "ninjavan-pudo-api-api-openapi.yml",
+    "ninjavan-tariff-api-api-openapi.yml",
+    "ninjavan-tracking-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "ninjavan-oauth-api-api-openapi.yml",
+    "ninjavan-order-api-api-openapi.yml",
+    "ninjavan-pudo-api-api-openapi.yml",
+    "ninjavan-tariff-api-api-openapi.yml",
+    "ninjavan-tracking-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
