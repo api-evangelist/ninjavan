@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ninja Van API (ninjaAPI) OAuth API Tracking API API",
+    "version": "4.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tracking API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get events for single parcel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/{countryCode}/1.0/orders/tracking-events/:trackingNumber",
+            "params": [
+              {
+                "name": "trackingNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the tracking events recorded for a single parcel."
+        },
+        {
+          "info": {
+            "name": "Get events for list of parcels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/{countryCode}/1.0/orders/tracking-events",
+            "params": [
+              {
+                "name": "tracking_number",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated or repeated tracking numbers."
+              }
+            ]
+          },
+          "docs": "Returns tracking events for a list of parcels."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

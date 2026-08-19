@@ -1,0 +1,1342 @@
+{
+  "item": [
+    {
+      "id": "8a8a88f5-51fe-4dec-babb-929605db962a",
+      "name": "Order API",
+      "description": {
+        "content": "Create and cancel delivery orders and generate waybills.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f928e452-253d-4c17-9e66-85e690a859f6",
+          "name": "Create delivery order (v4.2)",
+          "request": {
+            "name": "Create delivery order (v4.2)",
+            "description": {
+              "content": "Creates a delivery order. Version 4.2 of the create-order endpoint. The request describes the service, the pickup (from) and delivery (to) parties, and the parcel job (dimensions, delivery instructions, cash on delivery, delivery timeframe).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "4.2",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 3176.689095052939\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": 2748.1623793093145\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87287e56-5c70-439f-b04c-677581942c09",
+              "name": "The created order, including the assigned tracking number.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 3251.196099431217,\n      \"key_1\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": 5095\n  },\n  \"tracking_number\": \"string\",\n  \"status\": \"string\",\n  \"created_at\": \"2005-10-30T00:01:10.002Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b178f29d-b9aa-4f75-9e1f-cdf562703cad",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35992108-ee1c-47c8-bdba-0fb66b837492",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9235426c-67be-4369-ba6d-d7814c738691",
+              "name": "The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "792d53a2-f16a-4cec-96d0-00575b7fd6f5",
+          "name": "Create delivery order (v4.1)",
+          "request": {
+            "name": "Create delivery order (v4.1)",
+            "description": {
+              "content": "Creates a delivery order using version 4.1 of the create-order endpoint. Retained alongside 4.2 for existing integrations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "4.1",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 3176.689095052939\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": 2748.1623793093145\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "051e842b-a955-4c8b-9027-5ceb04c6a849",
+              "name": "The created order, including the assigned tracking number.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 3251.196099431217,\n      \"key_1\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": 5095\n  },\n  \"tracking_number\": \"string\",\n  \"status\": \"string\",\n  \"created_at\": \"2005-10-30T00:01:10.002Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efc2f39d-b5cd-4e2e-8577-079f9044b60b",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce2d3d90-cb74-4e7b-9c3e-8828f1841fa0",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fbd9ba7-7972-485a-a3ed-fa48b6504e7a",
+              "name": "The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "4.1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"parcel_job\": {\n    \"is_pickup_required\": \"<boolean>\",\n    \"pickup_service_type\": \"<string>\",\n    \"pickup_date\": \"<date>\",\n    \"delivery_start_date\": \"<date>\",\n    \"delivery_timeslot\": {\n      \"key_0\": 2089.0631474691854,\n      \"key_1\": 7212.618400412541,\n      \"key_2\": \"string\"\n    },\n    \"dimensions\": {\n      \"weight\": \"<number>\",\n      \"length\": \"<number>\",\n      \"width\": \"<number>\",\n      \"height\": \"<number>\"\n    },\n    \"cash_on_delivery\": \"<number>\",\n    \"allow_weekend_delivery\": \"<boolean>\"\n  },\n  \"service_level\": \"<string>\",\n  \"requested_tracking_number\": \"<string>\",\n  \"reference\": {\n    \"merchant_order_number\": \"<string>\"\n  },\n  \"marketplace\": {\n    \"key_0\": false,\n    \"key_1\": \"string\",\n    \"key_2\": 5392.242879888335\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee38605e-e6d4-4794-adcd-36f3031d2545",
+          "name": "Cancel order",
+          "request": {
+            "name": "Cancel order",
+            "description": {
+              "content": "Cancels an order that has not yet been picked up, by its tracking number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2.2",
+                "orders",
+                ":trackingNo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trackingNo",
+                  "description": "(Required) The tracking number of the order to cancel."
+                },
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12f72119-0496-4a4d-95fc-28e7f11f0ff3",
+              "name": "Cancellation result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.2",
+                    "orders",
+                    ":trackingNo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trackingNo",
+                      "description": "(Required) The tracking number of the order to cancel."
+                    },
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tracking_number\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5661fdd-d917-4d5e-9f45-01418e08556b",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.2",
+                    "orders",
+                    ":trackingNo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trackingNo",
+                      "description": "(Required) The tracking number of the order to cancel."
+                    },
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f9bf026-e307-4045-82fd-745f05132cb4",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.2",
+                    "orders",
+                    ":trackingNo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trackingNo",
+                      "description": "(Required) The tracking number of the order to cancel."
+                    },
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f38679d-2242-46de-a302-39c540ef9c9b",
+          "name": "Generate waybill",
+          "request": {
+            "name": "Generate waybill",
+            "description": {
+              "content": "Generates a waybill (air waybill / shipping label) PDF for one or more tracking numbers. Access to this endpoint must be granted by Ninja Van before use.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2.0",
+                "reports",
+                "waybill"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tid",
+                  "value": "<string>",
+                  "description": "(Required) One or more tracking numbers to include on the waybill."
+                },
+                {
+                  "disabled": false,
+                  "key": "hide_shipper_details",
+                  "value": "<boolean>",
+                  "description": "Whether to hide the shipper's details on the waybill."
+                },
+                {
+                  "disabled": false,
+                  "key": "orientation",
+                  "value": "<string>",
+                  "description": "Waybill orientation."
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d4bdbd0-85de-4713-a34a-bd9812e20b25",
+              "name": "A waybill document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "reports",
+                    "waybill"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hide_shipper_details",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "orientation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc2735e9-6f87-47f7-8e72-483b857d9cf0",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "reports",
+                    "waybill"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hide_shipper_details",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "orientation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fe5569b-c4f1-4202-a3be-c8982fea8649",
+              "name": "The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "reports",
+                    "waybill"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hide_shipper_details",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "orientation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f978904-5bb3-4e16-9773-3d2b818f2abc",
+          "name": "Generate international waybill",
+          "request": {
+            "name": "Generate international waybill",
+            "description": {
+              "content": "Generates an international waybill document for cross-border parcels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2.0",
+                "reports",
+                "international-waybills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tid",
+                  "value": "<string>",
+                  "description": "(Required) One or more tracking numbers to include on the waybill."
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0fb3e89-7e64-4968-8823-f4d99ff4d522",
+              "name": "An international waybill document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "reports",
+                    "international-waybills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e553136b-9c53-449f-90cb-ac124fc188b1",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "reports",
+                    "international-waybills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97e9efbb-214d-4567-8dac-5df3379bf1e5",
+              "name": "The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "reports",
+                    "international-waybills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of sg,my,id,ph,vn,th)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "sg",
+      "key": "countryCode"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ninjavan.co/{{countryCode}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f2d96d44-22b3-47e9-a19b-c7b81e16b43d",
+    "name": "Ninja Van API (ninjaAPI) OAuth API Order API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ninjaAPI is Ninja Van's REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.\nPaths, methods, and versions in this document are grounded in Ninja Van's published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.\n\nContact Support:\n Name: Ninja Van Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ninja Van API (ninjaAPI) OAuth API API",
+    "version": "4.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OAuth API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/{countryCode}/2.0/oauth/access_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges a client ID and client secret for a short-lived OAuth2 access token using the client-credentials grant. Attach the returned token as a Bearer token on all subsequent requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

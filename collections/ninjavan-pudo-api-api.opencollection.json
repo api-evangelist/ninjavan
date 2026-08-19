@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ninja Van API (ninjaAPI) OAuth API PUDO API API",
+    "version": "4.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PUDO API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Ninja Points (PUDO locations)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/{countryCode}/2.0/pudos",
+            "params": [
+              {
+                "name": "can_customer_collect",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "allow_shipper_send",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "allow_customer_return",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists Ninja Point pick-up / drop-off (PUDO) locations and their capabilities (customer collection, shipper send, returns, and so on)."
+        },
+        {
+          "info": {
+            "name": "Trigger shipper drop-off for parcel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/{countryCode}/1.0/send-orders/drop-off",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers the shipper drop-off flow for a parcel at a Ninja Point."
+        },
+        {
+          "info": {
+            "name": "Scan parcel for shipper drop-off",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/{countryCode}/1.0/send-orders/:trackingId",
+            "params": [
+              {
+                "name": "trackingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Scans a parcel by tracking ID as part of the shipper drop-off flow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

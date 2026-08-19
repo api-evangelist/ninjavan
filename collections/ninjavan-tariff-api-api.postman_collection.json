@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "f755ce96-6379-43d5-8a2f-9d2fb8448936",
+      "name": "Tariff API",
+      "description": {
+        "content": "Estimate shipping price.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0289e44-9b0c-47ae-90a5-c46c84b49d31",
+          "name": "Get price estimate",
+          "request": {
+            "name": "Get price estimate",
+            "description": {
+              "content": "Returns an estimated shipping price for a parcel between an origin and a destination, based on weight and dimensions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "1.0",
+                "public",
+                "price"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_type\": \"<string>\",\n  \"service_level\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"weight\": \"<number>\",\n  \"dimensions\": {\n    \"length\": \"<number>\",\n    \"width\": \"<number>\",\n    \"height\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d93c5907-60c7-45ab-a08d-eaad813721b9",
+              "name": "A price estimate.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "public",
+                    "price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"service_level\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"weight\": \"<number>\",\n  \"dimensions\": {\n    \"length\": \"<number>\",\n    \"width\": \"<number>\",\n    \"height\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"string\",\n  \"price\": 6050.200440235848,\n  \"breakdown\": {\n    \"key_0\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4677fc19-3adb-4209-9731-4d45ce106f7a",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "public",
+                    "price"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"service_type\": \"<string>\",\n  \"service_level\": \"<string>\",\n  \"from\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"to\": {\n    \"name\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"email\": \"<string>\",\n    \"address\": {\n      \"address1\": \"<string>\",\n      \"address2\": \"<string>\",\n      \"area\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"address_type\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postcode\": \"<string>\"\n    }\n  },\n  \"weight\": \"<number>\",\n  \"dimensions\": {\n    \"length\": \"<number>\",\n    \"width\": \"<number>\",\n    \"height\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": 3339.835787221297,\n      \"key_1\": 5522\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of sg,my,id,ph,vn,th)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "sg",
+      "key": "countryCode"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ninjavan.co/{{countryCode}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6b5d08a9-1756-447c-a3ca-01b0b6ddee8b",
+    "name": "Ninja Van API (ninjaAPI) OAuth API Tariff API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ninjaAPI is Ninja Van's REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.\nPaths, methods, and versions in this document are grounded in Ninja Van's published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.\n\nContact Support:\n Name: Ninja Van Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,642 @@
+{
+  "item": [
+    {
+      "id": "b642ecf1-4052-4854-aa8a-893d08d47bf7",
+      "name": "PUDO API",
+      "description": {
+        "content": "Ninja Point pick-up / drop-off locations and shipper drop-off.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fc894be-2f2a-47a0-bcf2-7bf173f38b1c",
+          "name": "List Ninja Points (PUDO locations)",
+          "request": {
+            "name": "List Ninja Points (PUDO locations)",
+            "description": {
+              "content": "Lists Ninja Point pick-up / drop-off (PUDO) locations and their capabilities (customer collection, shipper send, returns, and so on).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2.0",
+                "pudos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "can_customer_collect",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "allow_shipper_send",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "allow_customer_return",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10692197-f4ac-434e-af77-455f980d418a",
+              "name": "A list of Ninja Point locations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "pudos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "can_customer_collect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "allow_shipper_send",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "allow_customer_return",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"latitude\": 7230.011058503095,\n      \"longitude\": 3891.4312534197084,\n      \"can_customer_collect\": true,\n      \"allow_shipper_send\": false\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"latitude\": 4643.30958581204,\n      \"longitude\": 5104.281670189381,\n      \"can_customer_collect\": true,\n      \"allow_shipper_send\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3be5782a-b00f-4d4c-946e-211e33ea46d5",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "pudos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "can_customer_collect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "allow_shipper_send",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "allow_customer_return",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": 6631.745246500236,\n      \"key_1\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5eccb36-b3fd-4b8f-b421-8b70060f9388",
+          "name": "Trigger shipper drop-off for parcel",
+          "request": {
+            "name": "Trigger shipper drop-off for parcel",
+            "description": {
+              "content": "Triggers the shipper drop-off flow for a parcel at a Ninja Point.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "1.0",
+                "send-orders",
+                "drop-off"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 2811,\n  \"key_1\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d315c3c4-9e2b-465d-b62a-15a3f7cd3ccd",
+              "name": "Drop-off acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "send-orders",
+                    "drop-off"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 7192\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 7192\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62730467-83ea-4160-ac11-517438ae34fa",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "send-orders",
+                    "drop-off"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 7192\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": 6631.745246500236,\n      \"key_1\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a05a769b-e3ae-4253-a8ac-442f00fa7864",
+          "name": "Scan parcel for shipper drop-off",
+          "request": {
+            "name": "Scan parcel for shipper drop-off",
+            "description": {
+              "content": "Scans a parcel by tracking ID as part of the shipper drop-off flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "1.0",
+                "send-orders",
+                ":trackingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trackingId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19579a5f-793c-4876-b5bf-22616854a657",
+              "name": "Scan result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "send-orders",
+                    ":trackingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trackingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 7192\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14e062b2-a39e-4bbf-8512-e0dae5647364",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "send-orders",
+                    ":trackingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trackingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": 6631.745246500236,\n      \"key_1\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2e89b79-ba5b-4bc9-bcfc-812a3f729b8f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "1.0",
+                    "send-orders",
+                    ":trackingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trackingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": 6631.745246500236,\n      \"key_1\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of sg,my,id,ph,vn,th)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "sg",
+      "key": "countryCode"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ninjavan.co/{{countryCode}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9f48ee98-00d8-4a51-a823-c83443615525",
+    "name": "Ninja Van API (ninjaAPI) OAuth API PUDO API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ninjaAPI is Ninja Van's REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.\nPaths, methods, and versions in this document are grounded in Ninja Van's published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.\n\nContact Support:\n Name: Ninja Van Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

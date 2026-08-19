@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "777f4aa5-2302-46ac-93bc-8a16ef7a72b3",
+      "name": "OAuth API",
+      "description": {
+        "content": "OAuth2 client-credentials token issuance.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f10091b-3da6-4ea9-95e5-c9dec4c2c3ff",
+          "name": "Request access token",
+          "request": {
+            "name": "Request access token",
+            "description": {
+              "content": "Exchanges a client ID and client secret for a short-lived OAuth2 access token using the client-credentials grant. Attach the returned token as a Bearer token on all subsequent requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2.0",
+                "oauth",
+                "access_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                  "type": "any",
+                  "value": "{{countryCode}}",
+                  "key": "countryCode"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"grant_type\": \"client_credentials\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "114c0c2e-7af0-4e8d-b8ba-5c88b221cb5e",
+              "name": "An access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "oauth",
+                    "access_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"grant_type\": \"client_credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"bearer\",\n  \"expires\": 1389,\n  \"expires_in\": 257\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f02c46bf-9dd4-43cb-adb6-72222da0cb2c",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2.0",
+                    "oauth",
+                    "access_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": " (This can only be one of sg,my,id,ph,vn,th)",
+                      "type": "any",
+                      "value": "{{countryCode}}",
+                      "key": "countryCode"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"grant_type\": \"client_credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"title\": \"string\",\n    \"message\": \"string\",\n    \"details\": {\n      \"key_0\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": " (This can only be one of sg,my,id,ph,vn,th)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "sg",
+      "key": "countryCode"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ninjavan.co/{{countryCode}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "32f6231e-5a50-4afe-ac5a-154d8da4a3ba",
+    "name": "Ninja Van API (ninjaAPI) OAuth API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ninjaAPI is Ninja Van's REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.\nPaths, methods, and versions in this document are grounded in Ninja Van's published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.\n\nContact Support:\n Name: Ninja Van Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

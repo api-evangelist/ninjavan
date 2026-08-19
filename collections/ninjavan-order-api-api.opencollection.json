@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ninja Van API (ninjaAPI) OAuth API Order API API",
+    "version": "4.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create delivery order (v4.2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/{countryCode}/4.2/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a delivery order. Version 4.2 of the create-order endpoint. The request describes the service, the pickup (from) and delivery (to) parties, and the parcel job (dimensions, delivery instructions, cash on delivery, delivery timeframe)."
+        },
+        {
+          "info": {
+            "name": "Create delivery order (v4.1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/{countryCode}/4.1/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a delivery order using version 4.1 of the create-order endpoint. Retained alongside 4.2 for existing integrations."
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.ninjavan.co/{countryCode}/2.2/orders/:trackingNo",
+            "params": [
+              {
+                "name": "trackingNo",
+                "value": "",
+                "type": "path",
+                "description": "The tracking number of the order to cancel."
+              }
+            ]
+          },
+          "docs": "Cancels an order that has not yet been picked up, by its tracking number."
+        },
+        {
+          "info": {
+            "name": "Generate waybill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/{countryCode}/2.0/reports/waybill",
+            "params": [
+              {
+                "name": "tid",
+                "value": "",
+                "type": "query",
+                "description": "One or more tracking numbers to include on the waybill."
+              },
+              {
+                "name": "hide_shipper_details",
+                "value": "",
+                "type": "query",
+                "description": "Whether to hide the shipper's details on the waybill."
+              },
+              {
+                "name": "orientation",
+                "value": "",
+                "type": "query",
+                "description": "Waybill orientation."
+              }
+            ]
+          },
+          "docs": "Generates a waybill (air waybill / shipping label) PDF for one or more tracking numbers. Access to this endpoint must be granted by Ninja Van before use."
+        },
+        {
+          "info": {
+            "name": "Generate international waybill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ninjavan.co/{countryCode}/2.0/reports/international-waybills",
+            "params": [
+              {
+                "name": "tid",
+                "value": "",
+                "type": "query",
+                "description": "One or more tracking numbers to include on the waybill."
+              }
+            ]
+          },
+          "docs": "Generates an international waybill document for cross-border parcels."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

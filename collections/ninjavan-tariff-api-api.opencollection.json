@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ninja Van API (ninjaAPI) OAuth API Tariff API API",
+    "version": "4.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tariff API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get price estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ninjavan.co/{countryCode}/1.0/public/price",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an estimated shipping price for a parcel between an origin and a destination, based on weight and dimensions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
