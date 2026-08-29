@@ -11,6 +11,18 @@ description: Ninja Van is a Southeast Asian last-mile logistics and parcel-deliv
   (the country code is part of the path, e.g. https://api.ninjavan.co/SG/...) and
   authenticated with OAuth2 client credentials; access is granted per merchant after
   an onboarding and integration audit.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
