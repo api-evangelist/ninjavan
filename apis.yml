@@ -2,15 +2,13 @@ aid: ninjavan
 url: https://raw.githubusercontent.com/api-evangelist/ninjavan/refs/heads/main/apis.yml
 name: Ninja Van
 kind: company
-description: Ninja Van is a Southeast Asian last-mile logistics and parcel-delivery
-  company operating across Singapore, Malaysia, Indonesia, Philippines, Vietnam, and
-  Thailand. Its ninjaAPI lets merchants and e-commerce platforms integrate shipping
-  programmatically - create and cancel delivery orders, generate waybills (AWB),
-  estimate tariffs, look up Ninja Point (PUDO) drop-off locations, receive parcel
-  status updates via webhooks, and pull tracking events. The API is country-scoped
-  (the country code is part of the path, e.g. https://api.ninjavan.co/SG/...) and
-  authenticated with OAuth2 client credentials; access is granted per merchant after
-  an onboarding and integration audit.
+description: Ninja Van is a Southeast Asian last-mile logistics and parcel-delivery company operating
+  across Singapore, Malaysia, Indonesia, Philippines, Vietnam, and Thailand. Its ninjaAPI lets merchants
+  and e-commerce platforms integrate shipping programmatically - create and cancel delivery orders, generate
+  waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) drop-off locations, receive parcel status
+  updates via webhooks, and pull tracking events. The API is country-scoped (the country code is part
+  of the path, e.g. https://api.ninjavan.co/SG/...) and authenticated with OAuth2 client credentials;
+  access is granted per merchant after an onboarding and integration audit.
 deliveryModel:
   model: saas
   open_source: false
@@ -60,11 +58,11 @@ tags_raw:
 - Waybill
 - SaaS
 created: '2026-07-12'
-modified: '2026-07-12'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: ninjavan:ninjavan-oauth-api-api
-  name: Ninja Van OAuth API API
+  name: Ninja Van OAuth API
   description: OAuth2 client-credentials token issuance.
   humanURL: https://api-docs.ninjavan.co/
   baseURL: https://api.ninjavan.co/{countryCode}
@@ -82,7 +80,7 @@ apis:
   - type: OpenCollection
     url: collections/ninjavan.opencollection.json
 - aid: ninjavan:ninjavan-order-api-api
-  name: Ninja Van Order API API
+  name: Ninja Van Order API
   description: Create and cancel delivery orders and generate waybills.
   humanURL: https://api-docs.ninjavan.co/
   baseURL: https://api.ninjavan.co/{countryCode}
@@ -100,7 +98,7 @@ apis:
   - type: OpenCollection
     url: collections/ninjavan.opencollection.json
 - aid: ninjavan:ninjavan-pudo-api-api
-  name: Ninja Van PUDO API API
+  name: Ninja Van PUDO API
   description: Ninja Point pick-up / drop-off locations and shipper drop-off.
   humanURL: https://api-docs.ninjavan.co/
   baseURL: https://api.ninjavan.co/{countryCode}
@@ -118,7 +116,7 @@ apis:
   - type: OpenCollection
     url: collections/ninjavan.opencollection.json
 - aid: ninjavan:ninjavan-tariff-api-api
-  name: Ninja Van Tariff API API
+  name: Ninja Van Tariff API
   description: Estimate shipping price.
   humanURL: https://api-docs.ninjavan.co/
   baseURL: https://api.ninjavan.co/{countryCode}
@@ -136,7 +134,7 @@ apis:
   - type: OpenCollection
     url: collections/ninjavan.opencollection.json
 - aid: ninjavan:ninjavan-tracking-api-api
-  name: Ninja Van Tracking API API
+  name: Ninja Van Tracking API
   description: Pull tracking events for parcels.
   humanURL: https://api-docs.ninjavan.co/
   baseURL: https://api.ninjavan.co/{countryCode}
