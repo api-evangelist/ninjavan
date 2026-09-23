@@ -1,0 +1,1 @@
+{"resource":"https://salescrm.ninjavan.co/mcp","authorization_servers":["https://salescrm.ninjavan.co/"],"scopes_supported":["crm.read"],"bearer_methods_supported":["header"]}

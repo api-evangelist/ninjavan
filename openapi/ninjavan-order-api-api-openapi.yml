@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ninja Van API (ninjaAPI) OAuth API Order API API
-  description: 'ninjaAPI is Ninja Van''s REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand). Merchants create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) locations, and pull tracking events; Ninja Van pushes order status changes back to merchants via webhooks. Every request is country-scoped - the country code is the first path segment (for example /SG/, /MY/, /ID/) - and authenticated with an OAuth2 client-credentials bearer token. Production access is granted per merchant after an integration audit; the sandbox only supports the Singapore (sg) country code.
-
-    Paths, methods, and versions in this document are grounded in Ninja Van''s published OpenAPI specification (v4.1.0). Request/response schemas are modeled from the documentation and are simplified; verify exact field lists against the live API reference before production use.'
+  title: Ninja Van API (ninjaAPI) Order API
+  description: ninjaAPI is Ninja Van's REST API for integrating last-mile logistics across Southeast Asia (Singapore, Malaysia, Indonesia, Philippines, Vietnam, Thailand).
   version: 4.1.0
   contact:
     name: Ninja Van Developer Support
@@ -180,6 +178,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Forbidden:
       description: The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.
       content:
@@ -198,38 +202,37 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Order:
-      allOf:
-      - $ref: '#/components/schemas/OrderInput'
-      - type: object
-        properties:
-          tracking_number:
-            type: string
-          status:
-            type: string
-          created_at:
-            type: string
-            format: date-time
-    Error:
+    OrderInput:
       type: object
+      required:
+      - service_type
+      - from
+      - to
+      - parcel_job
       properties:
-        error:
+        service_type:
+          type: string
+          description: For example Parcel.
+        service_level:
+          type: string
+          description: For example Standard.
+        requested_tracking_number:
+          type: string
+        reference:
           type: object
           properties:
-            title:
+            merchant_order_number:
               type: string
-            message:
-              type: string
-            details:
-              type: object
-              additionalProperties: true
+        from:
+          $ref: '#/components/schemas/Contact'
+        to:
+          $ref: '#/components/schemas/Contact'
+        parcel_job:
+          $ref: '#/components/schemas/ParcelJob'
+        marketplace:
+          type: object
+          additionalProperties: true
     Contact:
       type: object
       description: A pickup or delivery party.
@@ -259,6 +262,13 @@ components:
               type: string
             postcode:
               type: string
+    CancelResponse:
+      type: object
+      properties:
+        tracking_number:
+          type: string
+        status:
+          type: string
     ParcelJob:
       type: object
       description: Details of the parcel and how it should be handled.
@@ -291,43 +301,31 @@ components:
           type: number
         allow_weekend_delivery:
           type: boolean
-    CancelResponse:
+    Error:
       type: object
       properties:
-        tracking_number:
-          type: string
-        status:
-          type: string
-    OrderInput:
-      type: object
-      required:
-      - service_type
-      - from
-      - to
-      - parcel_job
-      properties:
-        service_type:
-          type: string
-          description: For example Parcel.
-        service_level:
-          type: string
-          description: For example Standard.
-        requested_tracking_number:
-          type: string
-        reference:
+        error:
           type: object
           properties:
-            merchant_order_number:
+            title:
               type: string
-        from:
-          $ref: '#/components/schemas/Contact'
-        to:
-          $ref: '#/components/schemas/Contact'
-        parcel_job:
-          $ref: '#/components/schemas/ParcelJob'
-        marketplace:
-          type: object
-          additionalProperties: true
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+    Order:
+      allOf:
+      - $ref: '#/components/schemas/OrderInput'
+      - type: object
+        properties:
+          tracking_number:
+            type: string
+          status:
+            type: string
+          created_at:
+            type: string
+            format: date-time
   securitySchemes:
     bearerAuth:
       type: http
