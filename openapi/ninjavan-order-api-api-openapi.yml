@@ -177,91 +177,32 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    OrderInput:
+    Error:
       type: object
-      required:
-      - service_type
-      - from
-      - to
-      - parcel_job
       properties:
-        service_type:
-          type: string
-          description: For example Parcel.
-        service_level:
-          type: string
-          description: For example Standard.
-        requested_tracking_number:
-          type: string
-        reference:
+        error:
           type: object
           properties:
-            merchant_order_number:
+            title:
               type: string
-        from:
-          $ref: '#/components/schemas/Contact'
-        to:
-          $ref: '#/components/schemas/Contact'
-        parcel_job:
-          $ref: '#/components/schemas/ParcelJob'
-        marketplace:
-          type: object
-          additionalProperties: true
-    Contact:
-      type: object
-      description: A pickup or delivery party.
-      properties:
-        name:
-          type: string
-        phone_number:
-          type: string
-        email:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
+            message:
               type: string
-            address2:
-              type: string
-            area:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            address_type:
-              type: string
-            country:
-              type: string
-            postcode:
-              type: string
+            details:
+              type: object
+              additionalProperties: true
+    Order:
+      allOf:
+      - $ref: '#/components/schemas/OrderInput'
+      - type: object
+        properties:
+          tracking_number:
+            type: string
+          status:
+            type: string
+          created_at:
+            type: string
+            format: date-time
     CancelResponse:
       type: object
       properties:
@@ -301,31 +242,90 @@ components:
           type: number
         allow_weekend_delivery:
           type: boolean
-    Error:
+    Contact:
       type: object
+      description: A pickup or delivery party.
       properties:
-        error:
+        name:
+          type: string
+        phone_number:
+          type: string
+        email:
+          type: string
+        address:
           type: object
           properties:
-            title:
+            address1:
               type: string
-            message:
+            address2:
               type: string
-            details:
-              type: object
-              additionalProperties: true
-    Order:
-      allOf:
-      - $ref: '#/components/schemas/OrderInput'
-      - type: object
-        properties:
-          tracking_number:
-            type: string
-          status:
-            type: string
-          created_at:
-            type: string
-            format: date-time
+            area:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            address_type:
+              type: string
+            country:
+              type: string
+            postcode:
+              type: string
+    OrderInput:
+      type: object
+      required:
+      - service_type
+      - from
+      - to
+      - parcel_job
+      properties:
+        service_type:
+          type: string
+          description: For example Parcel.
+        service_level:
+          type: string
+          description: For example Standard.
+        requested_tracking_number:
+          type: string
+        reference:
+          type: object
+          properties:
+            merchant_order_number:
+              type: string
+        from:
+          $ref: '#/components/schemas/Contact'
+        to:
+          $ref: '#/components/schemas/Contact'
+        parcel_job:
+          $ref: '#/components/schemas/ParcelJob'
+        marketplace:
+          type: object
+          additionalProperties: true
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The caller lacks permission - wrong environment/country code, integration audit not passed, waybill access not granted, or a frozen account.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

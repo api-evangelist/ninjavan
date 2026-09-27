@@ -120,19 +120,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            title:
-              type: string
-            message:
-              type: string
-            details:
-              type: object
-              additionalProperties: true
     PudoLocation:
       type: object
       properties:
@@ -150,15 +137,28 @@ components:
           type: boolean
         allow_shipper_send:
           type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
   responses:
-    Unauthorized:
-      description: Missing or invalid access token.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid access token.
       content:
         application/json:
           schema:
