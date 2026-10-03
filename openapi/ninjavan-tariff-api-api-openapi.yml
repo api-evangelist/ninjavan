@@ -55,20 +55,24 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    PriceEstimate:
       type: object
       properties:
-        error:
+        currency:
+          type: string
+        price:
+          type: number
+        breakdown:
           type: object
-          properties:
-            title:
-              type: string
-            message:
-              type: string
-            details:
-              type: object
-              additionalProperties: true
+          additionalProperties: true
     PriceEstimateInput:
       type: object
       properties:
@@ -91,16 +95,6 @@ components:
               type: number
             height:
               type: number
-    PriceEstimate:
-      type: object
-      properties:
-        currency:
-          type: string
-        price:
-          type: number
-        breakdown:
-          type: object
-          additionalProperties: true
     Contact:
       type: object
       description: A pickup or delivery party.
@@ -130,13 +124,19 @@ components:
               type: string
             postcode:
               type: string
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

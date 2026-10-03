@@ -178,19 +178,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            title:
-              type: string
-            message:
-              type: string
-            details:
-              type: object
-              additionalProperties: true
     Order:
       allOf:
       - $ref: '#/components/schemas/OrderInput'
@@ -301,6 +288,19 @@ components:
         marketplace:
           type: object
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
   responses:
     BadRequest:
       description: The request was malformed or failed validation.
@@ -314,14 +314,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid access token.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid access token.
       content:
         application/json:
           schema:
