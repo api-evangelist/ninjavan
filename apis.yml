@@ -152,6 +152,9 @@ apis:
   - type: OpenCollection
     url: collections/ninjavan.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/ninjavan-capability-edges.yml
+  name: Ninja Van Business Capability Map
 - type: AgenticAccess
   url: agentic-access/ninjavan-agentic-access.yml
 - type: DomainSecurity

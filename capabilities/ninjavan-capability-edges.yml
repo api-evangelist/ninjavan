@@ -1,0 +1,35 @@
+slug: ninjavan
+provider: Ninja Van
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: PUDO API
+  spec_file: ninjavan-pudo-api-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.7
+  evidence: GET /2.0/pudos listNinjaPoints List Ninja Points (PUDO locations); POST /1.0/send-orders/drop-off
+    triggerShipperDropOff Trigger shipper drop-off for parcel
+  reason: Drop-off location lookup and parcel drop-off/scan execution are last-mile transport operations,
+    mapping to Logistics Operations Management.
+- tag: Tracking API
+  spec_file: ninjavan-tracking-api-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.7
+  evidence: GET /1.0/orders/tracking-events/{trackingNumber} getTrackingEventsForParcel Get events for
+    single parcel
+  reason: Parcel tracking-event retrieval provides shipment visibility over transport execution, i.e.
+    logistics operations within the supply chain.
