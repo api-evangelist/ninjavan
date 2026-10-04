@@ -55,14 +55,20 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
     PriceEstimate:
       type: object
       properties:
@@ -73,28 +79,6 @@ components:
         breakdown:
           type: object
           additionalProperties: true
-    PriceEstimateInput:
-      type: object
-      properties:
-        service_type:
-          type: string
-        service_level:
-          type: string
-        from:
-          $ref: '#/components/schemas/Contact'
-        to:
-          $ref: '#/components/schemas/Contact'
-        weight:
-          type: number
-        dimensions:
-          type: object
-          properties:
-            length:
-              type: number
-            width:
-              type: number
-            height:
-              type: number
     Contact:
       type: object
       description: A pickup or delivery party.
@@ -124,19 +108,35 @@ components:
               type: string
             postcode:
               type: string
-    Error:
+    PriceEstimateInput:
       type: object
       properties:
-        error:
+        service_type:
+          type: string
+        service_level:
+          type: string
+        from:
+          $ref: '#/components/schemas/Contact'
+        to:
+          $ref: '#/components/schemas/Contact'
+        weight:
+          type: number
+        dimensions:
           type: object
           properties:
-            title:
-              type: string
-            message:
-              type: string
-            details:
-              type: object
-              additionalProperties: true
+            length:
+              type: number
+            width:
+              type: number
+            height:
+              type: number
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

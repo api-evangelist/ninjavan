@@ -90,20 +90,19 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    TrackingEvent:
+      type: object
+      properties:
+        tracking_number:
+          type: string
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        description:
+          type: string
     Error:
       type: object
       properties:
@@ -117,18 +116,19 @@ components:
             details:
               type: object
               additionalProperties: true
-    TrackingEvent:
-      type: object
-      properties:
-        tracking_number:
-          type: string
-        status:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        description:
-          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
