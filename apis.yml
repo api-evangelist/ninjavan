@@ -58,7 +58,7 @@ tags_raw:
 - Waybill
 - SaaS
 created: '2026-07-12'
-modified: '2026-09-16'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: ninjavan:ninjavan-oauth-api-api
@@ -152,6 +152,10 @@ apis:
   - type: OpenCollection
     url: collections/ninjavan.opencollection.json
 common:
+- url: https://blog.ninjavan.co:443/en-my/
+  type: Blog
+- url: https://blog.ninjavan.co/en-my/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/ninjavan-capability-edges.yml
   name: Ninja Van Business Capability Map
