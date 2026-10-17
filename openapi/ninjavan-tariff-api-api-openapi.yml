@@ -56,19 +56,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            title:
-              type: string
-            message:
-              type: string
-            details:
-              type: object
-              additionalProperties: true
     PriceEstimate:
       type: object
       properties:
@@ -108,6 +95,19 @@ components:
               type: string
             postcode:
               type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            title:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
     PriceEstimateInput:
       type: object
       properties:
