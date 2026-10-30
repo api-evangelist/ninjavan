@@ -1,4 +1,4 @@
-# Ninja Van (ninjavan)
+# Ninja Van
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,181 +64,133 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Ninja Van is a Southeast Asian last-mile logistics and parcel-delivery company operating across Singapore, Malaysia, Indonesia, Philippines, Vietnam, and Thailand. Its **ninjaAPI** lets merchants and e-commerce platforms integrate shipping programmatically: create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) drop-off locations, receive parcel status updates via webhooks, and pull tracking events.
+Ninja Van is a Southeast Asian last-mile logistics and parcel-delivery company operating across Singapore, Malaysia, Indonesia, Philippines, Vietnam, and Thailand. Its ninjaAPI lets merchants and e-commerce platforms integrate shipping programmatically - create and cancel delivery orders, generate waybills (AWB), estimate tariffs, look up Ninja Point (PUDO) drop-off locations, receive parcel status updates via webhooks, and pull tracking events. The API is country-scoped (the country code is part of the path, e.g. https://api.ninjavan.co/SG/...) and authenticated with OAuth2 client credentials; access is granted per merchant after an onboarding and integration audit.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ninjavan/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ninjavan/refs/heads/main/apis.yml)
+**Areas:** Logistics · Last Mile Delivery · Shipping · Southeast Asia · Parcel · Tracking · Fulfillment · E-commerce Logistics · Waybill · Software-as-a-Service
 
-## Access model (read this first)
+## Ninja Van on APIs.io
 
-Ninja Van's API is **not a self-serve, metered API product** — it is a shipping-integration channel for merchants with a Ninja Van account, and access is gated:
+Everything profiled for Ninja Van is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ninjavan/](https://apis.io/providers/ninjavan/)** — or go straight to one of the APIs or properties below.
 
-- **Per-country host.** Every request is country-scoped: the country code is the first path segment. Production base URL is `https://api.ninjavan.co/{countryCode}` (e.g. `/SG/`, `/MY/`, `/ID/`, `/PH/`, `/VN/`, `/TH/`). The sandbox is `https://api-sandbox.ninjavan.co/sg` and **only supports the Singapore `sg` country code**.
-- **OAuth2 client credentials.** Exchange your `client_id` and `client_secret` for a short-lived access token via `POST /{countryCode}/2.0/oauth/access_token` (grant type `client_credentials`), then send it as `Authorization: Bearer ACCESS_TOKEN` on every request. Cache the token with its expiry and only regenerate within ~5 minutes of expiry or on an HTTP 401.
-- **Merchant onboarding + audit.** Sandbox access is requested by email to Ninja Van sales enablement. Production credentials are granted only after passing an **integration audit** (which requires generating sample orders). **Waybill generation requires separate prior access approval.**
+### APIs (5)
 
-Because pricing is per-parcel and country-specific (set in a merchant rate card), there is no public per-call API price; see `plans/` and `finops/`.
+- [Ninja Van OAuth API](https://apis.io/apis/ninjavan/ninjavan-oauth-api-api/) — OAuth2 client-credentials token issuance.
+- [Ninja Van Order API](https://apis.io/apis/ninjavan/ninjavan-order-api-api/) — Create and cancel delivery orders and generate waybills.
+- [Ninja Van PUDO API](https://apis.io/apis/ninjavan/ninjavan-pudo-api-api/) — Ninja Point pick-up / drop-off locations and shipper drop-off.
+- [Ninja Van Tariff API](https://apis.io/apis/ninjavan/ninjavan-tariff-api-api/) — Estimate shipping price.
+- [Ninja Van Tracking API](https://apis.io/apis/ninjavan/ninjavan-tracking-api-api/) — Pull tracking events for parcels.
 
-## Tags
+### Published properties
 
-- Logistics
-- Last-Mile Delivery
-- Shipping
-- Southeast Asia
-- Parcels
-- Tracking
-- Fulfillment
-- E-commerce Logistics
-- Waybill
-- SaaS
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Timestamps
+#### MCP servers (1)
 
-- **Created:** 2026-07-12
-- **Modified:** 2026-07-12
+Model Context Protocol servers that expose the API to agents.
 
-## APIs
+- [ninjavan](https://apis.io/servers/ninjavan/ninjavan/)
 
-### Ninja Van OAuth API
+#### Agentic access (1)
 
-Exchange a client ID and client secret for a short-lived OAuth2 access token using the client-credentials grant (`POST /{countryCode}/2.0/oauth/access_token`). The bearer token is attached to every subsequent ninjaAPI request.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://api-docs.ninjavan.co/](https://api-docs.ninjavan.co/)
-- **Base URL:** `https://api.ninjavan.co/{countryCode}`
+- [Ninjavan Agentic Access](https://apis.io/agentic-access/ninjavan/ninjavan-agentic-access/)
 
-#### Tags
+#### Collections (6)
 
-- OAuth2
-- Authentication
-- Client Credentials
+Postman and Open Collection request collections.
 
-#### Properties
+- [Ninja Van API (ninjaAPI)](https://apis.io/collections/ninjavan/open-ninjavan/)
+- [Ninja Van API (ninjaAPI) OAuth API API](https://apis.io/collections/ninjavan/open-ninjavan-oauth-api-api/)
+- [Ninja Van API (ninjaAPI) OAuth API Order API API](https://apis.io/collections/ninjavan/open-ninjavan-order-api-api/)
+- [Ninja Van API (ninjaAPI) OAuth API PUDO API API](https://apis.io/collections/ninjavan/open-ninjavan-pudo-api-api/)
+- [Ninja Van API (ninjaAPI) OAuth API Tariff API API](https://apis.io/collections/ninjavan/open-ninjavan-tariff-api-api/)
+- [Ninja Van API (ninjaAPI) OAuth API Tracking API API](https://apis.io/collections/ninjavan/open-ninjavan-tracking-api-api/)
 
-- [Documentation](https://api-docs.ninjavan.co/)
-- [API Reference](https://api-docs.ninjavan.co/)
-- [OpenAPI](openapi/ninjavan-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ninjavan.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ninjavan.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Security (2)
 
-### Ninja Van Order API
+Authentication, trust centre, and vulnerability disclosure.
 
-Create delivery orders (`POST /{countryCode}/4.2/orders` and the earlier `/4.1/orders`), cancel an order by tracking number (`DELETE /{countryCode}/2.2/orders/{trackingNo}`), and generate domestic or international waybills (`GET /{countryCode}/2.0/reports/waybill` and `/2.0/reports/international-waybills`). Waybill generation requires prior access approval from Ninja Van.
+- [Ninjavan Authentication](https://apis.io/security/ninjavan/ninjavan-authentication/)
+- [Ninjavan Domain Security](https://apis.io/security/ninjavan/ninjavan-domain-security/)
 
-- **Human URL:** [https://api-docs.ninjavan.co/](https://api-docs.ninjavan.co/)
-- **Base URL:** `https://api.ninjavan.co/{countryCode}`
+#### Plans and pricing (1)
 
-#### Tags
+Published plans, tiers and prices.
 
-- Orders
-- Waybill
-- AWB
-- Shipping
+- [Ninjavan Plans Pricing](https://apis.io/plans/ninjavan/ninjavan-plans-pricing/)
 
-#### Properties
+#### Rate limits (1)
 
-- [Documentation](https://api-docs.ninjavan.co/)
-- [API Reference](https://api-docs.ninjavan.co/)
-- [OpenAPI](openapi/ninjavan-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ninjavan.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ninjavan.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published request limits.
 
-### Ninja Van Tracking API
+- [Ninjavan Rate Limits](https://apis.io/rate-limits/ninjavan/ninjavan-rate-limits/)
 
-Retrieve tracking events for a single parcel (`GET /{countryCode}/1.0/orders/tracking-events/{trackingNumber}`) or for a list of parcels (`GET /{countryCode}/1.0/orders/tracking-events`). Ninja Van positions webhooks as the primary push mechanism for status changes.
+#### FinOps (1)
 
-- **Human URL:** [https://api-docs.ninjavan.co/](https://api-docs.ninjavan.co/)
-- **Base URL:** `https://api.ninjavan.co/{countryCode}`
+What the API costs to run, by operation.
 
-#### Tags
+- [Ninjavan Finops](https://apis.io/finops/ninjavan/ninjavan-finops/)
 
-- Tracking
-- Parcels
-- Events
+## Where to find this API
 
-#### Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [Documentation](https://api-docs.ninjavan.co/)
-- [API Reference](https://api-docs.ninjavan.co/)
-- [OpenAPI](openapi/ninjavan-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ninjavan.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ninjavan.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Ninja Van Webhooks API
-
-Ninja Van issues HTTP POST callbacks to a merchant-registered URL on every order status change — Pending Pickup, In Transit, On Vehicle for Delivery, Delivered, Delivery Exception, Returned to Sender, Cancelled, and more. The request body carries JSON describing the event. This is server-to-endpoint HTTP, **not a WebSocket**. Webhook URLs are registered through Ninja Van onboarding.
-
-- **Human URL:** [https://api-docs.ninjavan.co/](https://api-docs.ninjavan.co/)
-- **Base URL:** `https://api.ninjavan.co/{countryCode}`
-
-#### Tags
-
-- Webhooks
-- Events
-- Status Updates
-
-#### Properties
-
-- [Documentation](https://api-docs.ninjavan.co/)
-- [OpenAPI](openapi/ninjavan-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-### Ninja Van Tariff API
-
-Estimate the shipping price for a parcel between an origin and destination (`POST /{countryCode}/1.0/public/price`), given weight and dimensions.
-
-- **Human URL:** [https://api-docs.ninjavan.co/](https://api-docs.ninjavan.co/)
-- **Base URL:** `https://api.ninjavan.co/{countryCode}`
-
-#### Tags
-
-- Pricing
-- Tariff
-- Rate Estimate
-
-#### Properties
-
-- [Documentation](https://api-docs.ninjavan.co/)
-- [API Reference](https://api-docs.ninjavan.co/)
-- [OpenAPI](openapi/ninjavan-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ninjavan.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ninjavan.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Ninja Van PUDO API
-
-List Ninja Point pick-up/drop-off (PUDO) locations (`GET /{countryCode}/2.0/pudos`) and drive shipper drop-off flows for parcels (`/{countryCode}/1.0/send-orders/drop-off` and related send-order endpoints).
-
-- **Human URL:** [https://api-docs.ninjavan.co/](https://api-docs.ninjavan.co/)
-- **Base URL:** `https://api.ninjavan.co/{countryCode}`
-
-#### Tags
-
-- PUDO
-- Ninja Points
-- Drop-off
-
-#### Properties
-
-- [Documentation](https://api-docs.ninjavan.co/)
-- [API Reference](https://api-docs.ninjavan.co/)
-- [OpenAPI](openapi/ninjavan-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ninjavan.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ninjavan.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Domain Security](security/ninjavan-domain-security.yml)
-- [Authentication](authentication/ninjavan-authentication.yml)
-- [LinkedIn](https://www.linkedin.com/company/ninja-van)
 - [Website](https://www.ninjavan.co/en-sg)
 - [Documentation](https://api-docs.ninjavan.co/)
-- [Plans](plans/ninjavan-plans-pricing.yml)
-- [Rate Limits](rate-limits/ninjavan-rate-limits.yml)
-- [Fin Ops](finops/ninjavan-finops.yml)
-- [Blog](https://blog.ninjavan.co/en-sg/)
+- [Blog](https://blog.ninjavan.co:443/en-my/)
 
-## WebSocket Review
+## API Evangelist rating
 
-**Does Ninja Van expose a documented public WebSocket API?** No. The ninjaAPI is HTTPS REST plus outbound webhooks (HTTP POST callbacks); no `ws://` or `wss://` endpoint is documented. See [review.yml](review.yml).
+**Kin Score 27.3** — thin · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 50.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 44.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ninjavan/](https://apis.io/providers/ninjavan/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ninja Van: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ninjavan/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
